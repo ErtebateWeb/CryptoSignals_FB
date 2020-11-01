@@ -1,2 +1,5 @@
 .vscode/settings.json
 env/*
+__pycache__
+Signals/__pycache__/*
+CryptoSignal/__pycache__/*
