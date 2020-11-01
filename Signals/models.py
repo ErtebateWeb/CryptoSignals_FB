@@ -29,7 +29,7 @@ class signal(models.Model):
     updated_at = models.DateTimeField(null=True)
 
     created_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True)
+    updated_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 
     Images = models.ImageField(default='', upload_to='images/', null=True,blank=True)
     TelegramMessageId = models.CharField(max_length=30, default='',null=True,blank=True)
