@@ -18,12 +18,12 @@ class signal(models.Model):
     LivePrice = models.CharField(max_length=30, default='',null=True,blank=True)
     
     IsActive = models.BooleanField(default=True)
-    IsStopped = models.BooleanField(default=True)
-    IsTriggered = models.BooleanField(default=True)
-    IsTakeProfited1 = models.BooleanField(default=True)
-    IsTakeProfited2 = models.BooleanField(default=True)
-    IsTakeProfited3 = models.BooleanField(default=True)
-    IsTakeProfited4 = models.BooleanField(default=True)
+    IsStopped = models.BooleanField(default=False)
+    IsTriggered = models.BooleanField(default=False)
+    IsTakeProfited1 = models.BooleanField(default=False)
+    IsTakeProfited2 = models.BooleanField(default=False)
+    IsTakeProfited3 = models.BooleanField(default=False)
+    IsTakeProfited4 = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
