@@ -26,10 +26,10 @@ class signal(models.Model):
     IsTakeProfited4 = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
+    updated_at = models.DateTimeField(null=True,blank=True)
 
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='signals')
-    updated_by = models.ForeignKey(User,null=True, on_delete=models.CASCADE, related_name='+')
+    updated_by = models.ForeignKey(User,blank=True,null=True, on_delete=models.CASCADE, related_name='+')
 
     Images = models.ImageField(default='', upload_to='images/', null=True,blank=True)
     TelegramMessageId = models.CharField(max_length=30, default='',null=True,blank=True)
