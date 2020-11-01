@@ -27,8 +27,8 @@ class signal(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
-    
-    created_by = models.ForeignKey(User)
+
+    created_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     updated_by = models.ForeignKey(User, null=True)
 
     Images = models.ImageField(default='', upload_to='images/', null=True,blank=True)
