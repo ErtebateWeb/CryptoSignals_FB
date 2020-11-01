@@ -28,8 +28,8 @@ class signal(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
 
-    created_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(User, related_name='signals')
+    updated_by = models.ForeignKey(User,null=True, related_name='+')
 
     Images = models.ImageField(default='', upload_to='images/', null=True,blank=True)
     TelegramMessageId = models.CharField(max_length=30, default='',null=True,blank=True)
