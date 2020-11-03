@@ -47,8 +47,17 @@ def addsignal(request):
     form = submitsignalForm(request.POST)
     # print('user =',request.user)
     if form.is_valid():
-        newsignal = signal(SymbolTitle = request.POST['SymbolTitle'],NowPrice ='10' ,TriggerPrice='12',StopLoss='9',TakeProfit1='15',created_by=request.user )
+        newsignal = signal(SymbolTitle = request.POST['SymbolTitle'],NowPrice =request.POST['NowPrice'] ,TriggerPrice=request.POST['TriggerPrice'],StopLoss=request.POST['StopLoss'],TakeProfit1=request.POST['TakeProfit1'],TakeProfit2=request.POST['TakeProfit2'],TakeProfit3=request.POST['TakeProfit3'],TakeProfit4=request.POST['TakeProfit4'],created_by=request.user )
         newsignal.save()
+        newsignal.TelegramMessageId='5555'
+        newsignal.save()
+    # print(newsignal.id)
+    # print(newsignal.pk)
+    # sig=signal.objects.get(pk=newsignal.pk)
+    # sig.TelegramMessageId='9999'
+    # print(sig.TelegramMessageId)
+    # sig.save()
+
 
     # print(request.POST['SymbolTitle'])
     # print(newsignal)
