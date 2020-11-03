@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import signal
 from .forms import submitsignalForm
 from django.views.decorators.http import require_POST
+from django.contrib.auth.models import User
+
 
  
 # Create your views here.
@@ -43,7 +45,13 @@ def submit_signal(request):
 @require_POST
 def addsignal(request):
     form = submitsignalForm(request.POST)
-    print(request.POST['SymbolTitle'])
+    # print('user =',request.user)
+    if form.is_valid():
+        newsignal = signal(SymbolTitle = request.POST['SymbolTitle'],NowPrice ='10' ,TriggerPrice='12',StopLoss='9',TakeProfit1='15',created_by=request.user )
+        newsignal.save()
+
+    # print(request.POST['SymbolTitle'])
+    # print(newsignal)
     return redirect('submit')
 
 
