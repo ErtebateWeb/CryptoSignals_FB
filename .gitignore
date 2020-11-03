@@ -1,6 +1,8 @@
 .vscode/settings.json
 env/*
-__pycache__
+__pycache__/
+*.py[cod]
+*$py.class
 Signals/__pycache__/*
 CryptoSignal/__pycache__/*
 Signals/__pycache__/views.cpython-38.pyc
