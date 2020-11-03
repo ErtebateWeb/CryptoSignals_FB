@@ -8,7 +8,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
       path('', views.home, name='home'),
-      path('index', views.index, name='index'),
+      # path('index', views.index, name='index'),
+      path('submit', views.submit_signal, name='submit'),
+      path('add', views.addsignal, name='add'),
+
 #     path('submit_signals', submit_signals),
 #    # path('products/<pk>', ProductDetailView.as_view()),
 #     path('signal_details/<id>', binary_detail_view),
