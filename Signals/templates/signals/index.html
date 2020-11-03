@@ -44,7 +44,7 @@
                 <th>TriggerPrice</th>
                 <th>StopLoss</th>
                 <th>TakeProfit1</th>
-                <th>TakeProfit2</th>
+                <!-- <th>TakeProfit2</th>
                 <th>TakeProfit3</th>
                 <th>TakeProfit4</th>
                 <th>Live Price</th>
@@ -52,7 +52,7 @@
                 <th>CreatedDate</th>
                 <th>updatedDate</th>
                 <th>Publisher</th>
-                <th>Images</th>
+                <th>Images</th> -->
             </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                 <td>{{obj.TriggerPrice }}</td>
                 <td>{{obj.StopLoss }}</td>
                 <td>{{obj.TakeProfit1 }}</td>
-                <td>{{obj.TakeProfit2 }}</td>
+                <!-- <td>{{obj.TakeProfit2 }}</td>
                 <td>{{obj.TakeProfit3 }}</td>
                 <td>{{obj.TakeProfit4 }}</td>
                 <td style="font-weight: bold">{{obj.LivePrice }}</td>
@@ -79,7 +79,7 @@
                 <td><a href="https://t.me/{{obj.Publisher }}" target="_blank">{{obj.created_by }}</a></td>
                 <td><a href="/signals/images/{{obj.Images }}" target="_blank"><img src="/signals/{{obj.Images }}"
                                                                            height="50px"
-                                                                           width="50px"></a></td>
+                                                                           width="50px"></a></td> -->
                 </td>
             </tr>
 
@@ -92,9 +92,29 @@
         <!--{{ is_paginated }}-->
         <!--<hr>-->
     </div>
-</div>
+    </div>
 </div>
 <hr>
+<div class="row">
+    <div class="col-md-12">
+    <h2>add new signal</h2>
+    <form action="{% url 'add' %}" method="POST" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="input-group">
+                <!-- <input type="text" class="form-control" placeholder="Enter ..."
+                aria-label="toooo"
+                aria-describedby="add-btn"> -->
+                {{ frm.SymbolTitle }}
+              
+              <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default" id="add-btn">ADD</button>
+              </span>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
 <!-- <script>
     var table = document.getElementById("table");
     console.log(table.rows.length);
