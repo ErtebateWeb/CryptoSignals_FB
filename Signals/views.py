@@ -63,5 +63,18 @@ def addsignal(request):
     # print(newsignal)
     return redirect('submit')
 
+@require_POST
+def deactivesignal(request,signal_id):
+    sig= signal.objects.get(pk=signal_id)
+    sig.IsActive = False
+    sig.save()
+    # form = submitsignalForm(request.POST)
+    # print('user =',request.user)
+    # if form.is_valid():
+    #     newsignal = signal(SymbolTitle = form.cleaned_data['SymbolTitle'],NowPrice =form.cleaned_data['NowPrice'] ,TriggerPrice=form.cleaned_data['TriggerPrice'],StopLoss=form.cleaned_data['StopLoss'],TakeProfit1=form.cleaned_data['TakeProfit1'],TakeProfit2=form.cleaned_data['TakeProfit2'],TakeProfit3=form.cleaned_data['TakeProfit3'],TakeProfit4=form.cleaned_data['TakeProfit4'],created_by=request.user )
+    #     newsignal.save()
+    #     newsignal.TelegramMessageId='5555'
+    #     newsignal.save()
+    return redirect('submit')
 
 
