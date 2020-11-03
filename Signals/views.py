@@ -2,6 +2,8 @@ from django.shortcuts import render , redirect
 from django.http import HttpResponse
 from .models import signal
 from .forms import submitsignalForm
+from django.views.decorators.http import require_POST
+
  
 # Create your views here.
 # def index(request):
@@ -38,7 +40,7 @@ def submit_signal(request):
     
     return render(request,'signals/index.html',context)
 
-
+@require_POST
 def addsignal(request):
     form = submitsignalForm(request.POST)
     print(request.POST['SymbolTitle'])
