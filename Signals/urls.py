@@ -11,6 +11,7 @@ urlpatterns = [
       # path('index', views.index, name='index'),
       path('submit', views.submit_signal, name='submit'),
       path('add', views.addsignal, name='add'),
+      path('deactivesignal/<signal_id>', views.deactivesignal, name='deactivesignal'),
 
 #     path('submit_signals', submit_signals),
 #    # path('products/<pk>', ProductDetailView.as_view()),
