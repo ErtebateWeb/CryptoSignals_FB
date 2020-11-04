@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/fixedheader/3.1.7/css/fixedHeader.dataTables.min.css">
+
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/fixedheader/3.1.7/js/dataTables.fixedHeader.min.js"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <a href="/cryptosignal/submit_signals" target="_blank">
+            <button type="button" class="btn btn-primary btn-block">Submit Signal</button>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+        <table class="table table-bordered table-hover table-striped display"  style="width:100%" id="table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>SymbolTitle</th>
+                <th>NowPrice</th>
+                <th>TimeFrame</th>
+                <th>TriggerPrice</th>
+                <th>StopLoss</th>
+                <th>TakeProfit1</th>
+                <!-- <th>TakeProfit2</th>
+                <th>TakeProfit3</th>
+                <th>TakeProfit4</th>
+                <th>Live Price</th>
+                <th>%</th>
+                <th>CreatedDate</th>
+                <th>updatedDate</th>
+                <th>Publisher</th>
+                <th>Images</th> -->
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in signal_list %}
+
+            <tr>
+                <td scope="row"><a href="https://www.binance.com/en/futures/{{obj.SymbolTitle }}?layout=pro"
+                                   target="_blank">{{ obj.id }}</td>
+                <td><a href="https://www.binance.com/en/trade/{{obj.SymbolTitle }}?layout=pro" target="_blank">{{obj.SymbolTitle}}</a>
+                </td>
+
+                <td><a target="_blank" href="https://www.tradingview.com/widgetembed/?frameElementId=tradingview_e4bd3&symbol='Binance:{{ obj.sym }}'&interval=D&hidesidetoolbar=0&symboledit=1&saveimage=1&toolbarbg=f1f3f6&details=1&studies=CCI%40tv-basicstudies%1FIchimokuCloud%40tv-basicstudies%1FMACD%40tv-basicstudies%1FStochastic%40tv-basicstudies&theme=dark&style=1&timezone=Asia%2FTehran&withdateranges=1&studies_overrides=%7B%7D&overrides=%7B%7D&enabled_features=%5B%5D&disabled_features=%5B%5D&enablepublishing=true&locale=en&utm_source=127.0.0.1&utm_medium=widget_new&utm_campaign=chart&utm_term=Binance:{{ obj.sym }}"> {{obj.NowPrice }}</a></td>
+                <td><a href="/updatesignal/{{obj.id }}">{{obj.TimeFrame }}</a></td>
+                <td><a href="/deactivesignal/{{obj.id }}">{{obj.TriggerPrice }}</a></td>
+                <td>{{obj.StopLoss }}</td>
+                <td>{{obj.TakeProfit1 }}</td>
+                <!-- <td>{{obj.TakeProfit2 }}</td>
+                <td>{{obj.TakeProfit3 }}</td>
+                <td>{{obj.TakeProfit4 }}</td>
+                <td style="font-weight: bold">{{obj.LivePrice }}</td>
+                <td style="font-weight: bold" id="percentage"></td>
+                <td>{{obj.created_at }}</td>
+                <td>{{obj.updated_at }}</td>
+                <td><a href="https://t.me/{{obj.Publisher }}" target="_blank">{{obj.created_by }}</a></td>
+                <td><a href="/signals/images/{{obj.Images }}" target="_blank"><img src="/signals/{{obj.Images }}"
+                                                                           height="50px"
+                                                                           width="50px"></a></td> -->
+                </td>
+            </tr>
+
+
+            {% endfor %}
+            </tbody>
+        </table>
+        <!--{{ object_list }}-->
+        <!--<br>-->
+        <!--{{ is_paginated }}-->
+        <!--<hr>-->
+    </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-md-12">
+    <h2>add new signal</h2>
+    <form action="{% url 'updatesignal' %}" method="POST" role="form">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="input-group">
+                <!-- <input type="text" class="form-control" placeholder="Enter ..."
+                aria-label="toooo"
+                aria-describedby="add-btn"> -->
+                </br>{{ frm.SymbolTitle }}
+                </br>{{ frm.TimeFrame }}
+                </br>{{ frm.NowPrice }}
+                </br>{{ frm.TriggerPrice }}
+                </br>{{ frm.StopLoss }}
+                </br>{{ frm.TakeProfit1 }}
+                </br>{{ frm.TakeProfit2 }}
+                </br>{{ frm.TakeProfit3 }}
+                </br>{{ frm.TakeProfit4 }}
+              
+              <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default" id="add-btn">ADD</button>
+              </span>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<!-- <script>
+    var table = document.getElementById("table");
+    console.log(table.rows.length);
+    for (var i = 1; i < table.rows.length; i++) {
+        console.log(i);
+        var trig = table.rows[i].cells[4].innerHTML;
+        var stopl = table.rows[i].cells[5].innerHTML;
+        var Tp1 = table.rows[i].cells[6].innerHTML;
+        var Tp2 = table.rows[i].cells[7].innerHTML;
+        var Tp3 = table.rows[i].cells[8].innerHTML;
+        var Tp4 = table.rows[i].cells[9].innerHTML;
+        var livep = table.rows[i].cells[10].innerHTML;
+        // var percent = table.rows[i].cells[11].innerHTML;
+
+        table.rows[i].cells[11].innerHTML = ((livep - trig) / trig * 100).toFixed(3);
+
+        //console.log("per=" + percent);
+        console.log("trig=" + trig);
+        console.log("livep=" + livep);
+        console.log("StopLoss=" + stopl);
+        console.log("TP1=" + Tp1);
+        console.log("TP2=" + Tp2);
+        console.log("TP3=" + Tp3);
+        console.log("TP4=" + Tp4);
+        if (trig <= livep)
+            table.rows[i].style.background = "yellow";
+        if (Tp1 <= livep)
+            table.rows[i].style.background = "#b0ff00";
+        // if ((Tp2!=='None') && (Tp2 <= livep))
+        //    table.rows[i].style.background = "#31e531";
+        // if ((Tp3!=='None') && (Tp3 <= livep))
+        //    table.rows[i].style.background = "#45bd45";
+        // if ((Tp4!=='None') && (Tp4 <= livep))
+        //     table.rows[i].style.background = "#4c924c";
+        if (stopl >= livep)
+            table.rows[i].style.background = "red";
+        // var difference = new Date().getTime();
+        // console.log(((difference - d)/86400000) > 100);
+        // if(((difference - d)/86400000) > 100)
+        //   table.rows[i].style.background = "red";
+    }
+</script> -->
+<script>
+    $(document).ready(function () {
+        $('#table').dataTable({
+            fixedHeader: {
+                header: true,
+                footer: true
+            },
+
+            "pageLength": 25,
+            "order": [[11, "desc"]]
+        });
+    })
+</script>
+
+</body>
+</html>
