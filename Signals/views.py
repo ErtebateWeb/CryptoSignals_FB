@@ -6,6 +6,7 @@ from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, get_user_model
 from django.shortcuts import render, get_object_or_404, redirect
+import telegram_Api
 
 User = get_user_model()
 
@@ -54,13 +55,18 @@ def addsignal(request):
         form = SignalModelForm(request.POST)
 
         if form.is_valid():
-            print('form is valid=',form.is_valid)
-            print(form.cleaned_data)
-            newsignal = signal(SymbolTitle = form.cleaned_data['SymbolTitle'],NowPrice =form.cleaned_data['NowPrice'] ,TriggerPrice=form.cleaned_data['TriggerPrice'],StopLoss=form.cleaned_data['StopLoss'],TakeProfit1=form.cleaned_data['TakeProfit1'],TakeProfit2=form.cleaned_data['TakeProfit2'],TakeProfit3=form.cleaned_data['TakeProfit3'],TakeProfit4=form.cleaned_data['TakeProfit4'],created_by=request.user )
-            newsignal.save()
-            newsignal.TelegramMessageId='5555'
+            # print('form is valid=',form.is_valid)
+            # print(form.cleaned_data)
+            newsignal = signal(SymbolTitle = form.cleaned_data['SymbolTitle'],TimeFrame = form.cleaned_data['TimeFrame'],NowPrice =form.cleaned_data['NowPrice'] ,TriggerPrice=form.cleaned_data['TriggerPrice'],StopLoss=form.cleaned_data['StopLoss'],TakeProfit1=form.cleaned_data['TakeProfit1'],TakeProfit2=form.cleaned_data['TakeProfit2'],TakeProfit3=form.cleaned_data['TakeProfit3'],TakeProfit4=form.cleaned_data['TakeProfit4'],created_by=request.user )
             newsignal.save()
 
+            message = "💰 : {}\n\n⏳ TF: {}\n\n💵 NP: {}\n\n🔫 Tr : {}\n\n⛔️ SL : {}\n\n✅ Tp1 : {}   🧮 {}\n\n✅ Tp2 : {}   🧮 {}\n\n✅ Tp3 : {}   🧮 {}\n\n✅ Tp4 : {}   🧮 {}".format(
+            form.cleaned_data['SymbolTitle'],form.cleaned_data['TimeFrame'],  form.cleaned_data['NowPrice'], form.cleaned_data['TriggerPrice'], form.cleaned_data['StopLoss'], form.cleaned_data['TakeProfit1'], None, form.cleaned_data['TakeProfit2'], None, form.cleaned_data['TakeProfit3'], None, form.cleaned_data['TakeProfit4'], None)            # res = telegram_Api.sendp(chat_id='@crypto_monarch', photo=open('images\images\\' + picpath, 'rb'),
+            #                      caption=message)
+            res = telegram_Api.send(msg=message,chat_id='@crypto_monarch')
+            print(res)
+            newsignal.TelegramMessageId=res.message_id
+            newsignal.save()
             # form.save()
             return redirect("/submit")
 
@@ -113,8 +119,26 @@ def updatesignal(request,pk):
             # print(form.cleaned_data['SymbolTitle'])
             # form = signal(SymbolTitle = form.cleaned_data['SymbolTitle'],NowPrice =form.cleaned_data['NowPrice'] ,TriggerPrice=form.cleaned_data['TriggerPrice'],StopLoss=form.cleaned_data['StopLoss'],TakeProfit1=form.cleaned_data['TakeProfit1'],TakeProfit2=form.cleaned_data['TakeProfit2'],TakeProfit3=form.cleaned_data['TakeProfit3'],TakeProfit4=form.cleaned_data['TakeProfit4'],created_by=request.user )
             form.save()
+
+
+
+            message = "💰 : {}\n\n⏳ TF: {}\n\n💵 NP: {}\n\n🔫 Tr : {}\n\n⛔️ SL : {}\n\n✅ Tp1 : {}   🧮 {}\n\n✅ Tp2 : {}   🧮 {}\n\n✅ Tp3 : {}   🧮 {}\n\n✅ Tp4 : {}   🧮 {}".format(
+            form.cleaned_data['SymbolTitle'],form.cleaned_data['TimeFrame'],  form.cleaned_data['NowPrice'], form.cleaned_data['TriggerPrice'], form.cleaned_data['StopLoss'], form.cleaned_data['TakeProfit1'], None, form.cleaned_data['TakeProfit2'], None, form.cleaned_data['TakeProfit3'], None, form.cleaned_data['TakeProfit4'], None)            
+            # res = telegram_Api.sendp(chat_id='@crypto_monarch', photo=open('images\images\\' + picpath, 'rb'),   
+            print('message=',message)         
+            edit = telegram_Api.editmessage(message=message, messageId=sig.TelegramMessageId)
+            # edit = telegram_Api.editmessage(message=message, messageId=sig.TelegramMessageId)
+            print(edit)
+
+            # res = telegram_Api.send(msg=message,chat_id='@crypto_monarch')
+            # print('res=',res.message_id)
             
-            sig.TelegramMessageId='0000'
+            
+            # newsignal = signal(SymbolTitle = form.cleaned_data['SymbolTitle'],TimeFrame = form.cleaned_data['TimeFrame'],NowPrice =form.cleaned_data['NowPrice'] ,TriggerPrice=form.cleaned_data['TriggerPrice'],StopLoss=form.cleaned_data['StopLoss'],TakeProfit1=form.cleaned_data['TakeProfit1'],TakeProfit2=form.cleaned_data['TakeProfit2'],TakeProfit3=form.cleaned_data['TakeProfit3'],TakeProfit4=form.cleaned_data['TakeProfit4'],created_by=request.user )
+
+            # sig.TelegramMessageId
+            
+            # sig.TelegramMessageId='0000'
             sig.updated_by=request.user
             sig.updated_at= datetime.now()
             sig.save()
