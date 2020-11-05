@@ -15,7 +15,6 @@ def send(msg, chat_id, token=Configuration.Telegram_API_TOKEN):
 
 # bot.send_photo(chat_id=chat_id,photo='signals\images\Decred-DCR.png', caption='This is the test photo caption')
 
-url = 'api.telegram.org/bot1306512151:AAGpLPqZpUm5VRVeU8t2Lok10_erhYGlao0'
 
 def sendp(chat_id, photo, caption, token=Configuration.Telegram_API_TOKEN):
 # def sendp(chat_id, photo, caption, token=API_TOKEN, rep=0):
